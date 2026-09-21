@@ -188,10 +188,10 @@ Running the pipeline produces a timestamped output directory containing:
 |---|---|---|
 | XGBoost | 0.69 | [0.47, 0.82] |
 | Random Forest | 0.67 | [0.41, 0.81] |
-| HGBR | 0.64 | [0.39, 0.78] |
-| Ridge Regression | 0.56 | [0.34, 0.70] |
-| PCA+LR | 0.56 | [0.32, 0.72] |
-| SVR | 0.49 | [0.20, 0.68] |
+| HGBR | 0.64 | [0.40, 0.78] |
+| Ridge Regression | 0.56 | [0.33, 0.71] |
+| PCA+LR | 0.56 | [0.34, 0.70] |
+| SVR | 0.49 | [0.21, 0.67] |
 
 **Top 5 SHAP features (XGBoost, test set):**
 
