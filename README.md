@@ -8,15 +8,15 @@ This repository contains the code and dataset associated with the following pape
 
 ## Overview
 
-This study develops a unified machine learning framework for predicting hydrogen yield from microwave-assisted pyrolysis (MAP) of diverse waste feedstocks, including biomass, plastic waste, and mixed municipal solid waste. A dataset of 205 experimental datapoints compiled from 13 peer-reviewed studies was assembled, incorporating 27 input features spanning feedstock properties, microwave operating conditions, microwave absorber dielectric properties, and catalyst physicochemical characteristics.
+This study develops a unified machine learning framework for predicting hydrogen yield from microwave-assisted pyrolysis (MAP) of diverse waste feedstocks, including biomass, plastic waste, and mixed municipal solid waste. A dataset of 241 experimental datapoints compiled from 16 peer-reviewed studies was assembled, incorporating 25 input features spanning feedstock properties, microwave operating conditions, microwave absorber dielectric properties, and catalyst properties.
 
 Six machine learning models were evaluated and compared:
-- **XGBoost** (best performing, test R² = 0.76)
+- **XGBoost** (best performing, test R² = 0.69)
 - Random Forest (RF)
 - Histogram-based Gradient Boosting Regression (HGBR)
-- Support Vector Regression (SVR)
 - Ridge Regression
 - Principal Component Analysis + Linear Regression (PCA+LR)
+- Support Vector Regression (SVR)
 
 SHAP analysis was applied to the best performing model (XGBoost) to identify the key input features governing hydrogen yield and provide data-driven guidance for experimental design and catalyst selection.
 
@@ -37,7 +37,7 @@ map-hydrogen-yield-ml/
 │   ├── plots.py                 # Parity plots (IJHE publication style)
 │   └── shap_analysis.py        # SHAP analysis — beeswarm, bar, waterfall, dependence plots
 │
-├── Dataset_Modelling.xlsx       # Compiled experimental dataset (205 datapoints, 27 features)
+├── Dataset_Modelling.xlsx       # Compiled experimental dataset (241 datapoints, 25 input features and 1 output variable)
 ├── notebook.ipynb               # Jupyter notebook to run the full pipeline
 ├── requirements.txt             # Essential Python dependencies
 ├── environment.yml              # Full conda environment for exact reproducibility
@@ -48,12 +48,12 @@ map-hydrogen-yield-ml/
 
 ## Dataset
 
-The dataset (`Dataset_Modelling.xlsx`) contains 205 experimental datapoints compiled from 13 peer-reviewed studies on microwave-assisted pyrolysis. Input features are organised into four categories:
+The dataset (`Dataset_Modelling.xlsx`) contains 241 experimental datapoints compiled from 16 peer-reviewed studies on microwave-assisted pyrolysis. Input features are organised into four categories:
 
 | Category | Features |
 |---|---|
 | Feedstock properties | Particle size, carbon, hydrogen, nitrogen, oxygen, sulfur, moisture, volatile matter, fixed carbon, ash content |
-| Microwave operating parameters | Pyrolysis temperature, catalytic reactor temperature, heating rate, microwave frequency, microwave power, isothermal time |
+| Microwave operating parameters | Pyrolysis temperature, heating rate, microwave power, isothermal time |
 | Microwave absorber properties | Absorber identity, absorber particle size, dielectric constant (ε′), dielectric loss tangent (tan δ), feedstock to absorber ratio |
 | Catalyst properties | Catalyst identity, surface area, pore diameter, metal loading, feedstock to catalyst ratio, catalyst particle size |
 
@@ -186,23 +186,22 @@ Running the pipeline produces a timestamped output directory containing:
 
 | Model | Test R² | 95% CI |
 |---|---|---|
-| XGBoost | 0.76 | [0.59, 0.86] |
-| Random Forest | 0.73 | [0.57, 0.84] |
-| HGBR | 0.68 | [0.50, 0.80] |
-| SVR | 0.60 | [0.34, 0.74] |
-| Ridge Regression | 0.58 | [0.36, 0.72] |
-| PCA+LR | 0.54 | [0.23, 0.71] |
+| XGBoost | 0.69 | [0.47, 0.82] |
+| Random Forest | 0.67 | [0.41, 0.81] |
+| HGBR | 0.64 | [0.39, 0.78] |
+| Ridge Regression | 0.56 | [0.34, 0.70] |
+| PCA+LR | 0.56 | [0.32, 0.72] |
+| SVR | 0.49 | [0.20, 0.68] |
 
-**Top SHAP features (XGBoost, test set):**
+**Top 5 SHAP features (XGBoost, test set):**
 
 | Rank | Feature | Mean Absolute SHAP |
 |---|---|---|
-| 1 | Feedstock to catalyst ratio (wt/wt) | 5.7 |
-| 2 | Hydrogen content (wt%) | 4.8 |
-| 3 | Pyrolysis temperature (°C) | 3.2 |
-| 4 | Catalyst pore diameter (nm) | 2.3 |
-| 5 | Microwave power (W) | 2.2 |
-| 6 | Catalyst particle size (mm) | 1.8 |
+| 1 | Hydrogen content (wt%) | 5.6 |
+| 2 | Feedstock to catalyst ratio (wt/wt) | 5.1 |
+| 3 | Metal loading in catalyst (wt%) | 2.8 |
+| 4 | Pyrolysis temperature (°C) | 1.8 |
+| 5 | Microwave power (W) | 1.4 |
 
 ---
 
